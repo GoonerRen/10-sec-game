@@ -3,6 +3,7 @@ $(document).ready(function(){
   var interval;
   var timeLeft = 10;
   var score = 0;
+  var highscore = 0;
   var plus = 0;
   var minus = 0;
   var times = 0;
@@ -11,11 +12,13 @@ $(document).ready(function(){
   var updateTimeLeft = function (amount) {
     timeLeft += amount;
     $('#time-left').text(timeLeft);
+
   };
 
   var updateScore = function (amount) {
     score += amount;
     $('#score').text(score);
+
   };
 
   var startGame = function () {
@@ -29,6 +32,12 @@ $(document).ready(function(){
         if (timeLeft === 0) {
           clearInterval(interval);
           interval = undefined;
+          if (score > highscore) { 
+            highscore = score;
+          $('#highscore').text(highscore);
+           }
+          score = 0;
+          $('#score').text(score);
         }
       }, 1000);
     }
@@ -105,8 +114,7 @@ return question;
 document.getElementById('question-plus').onclick = function() {
 
     if ( this.checked ) {
-      console.log(plus);
-      console.log("plus");
+
       plus ++;
     return  renderNewQuestion();
 
@@ -153,7 +161,7 @@ document.getElementById('question-divide').onclick = function() {
 
 
 $("#number-limit").on("input change", function() {
-    console.log("ranger");
+
   renderNewQuestion();
 });
 
